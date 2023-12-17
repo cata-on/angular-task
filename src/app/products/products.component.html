@@ -1,4 +1,15 @@
-<div *ngFor="let product of products">
-  <span>#{{ product.id }} - </span>
-  <span>{{ product.title }}</span>
+<div class="wrapper">
+  <h1>Angular Task</h1>
+
+  <div *ngIf="!!products; else loading">
+    <t-grid [data]="products">
+      <t-column [name]="'ID'" [property]="'id'"></t-column>
+      <t-column [name]="'Product'" [property]="'title'"></t-column>
+      <t-column [name]="'Description'" [property]="'description'"></t-column>
+    </t-grid>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading">Loading data...</div>
+  </ng-template>
 </div>

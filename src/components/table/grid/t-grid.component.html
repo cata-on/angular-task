@@ -1,0 +1,13 @@
+<div class="table">
+  <div class="table-header">
+    <span class="table-cell" *ngFor="let column of columns"
+      >{{ column.name }}
+    </span>
+  </div>
+
+  <div class="table-row" *ngFor="let product of data">
+    <span class="table-cell" *ngFor="let column of columns">
+      {{ product[column.property] }}
+    </span>
+  </div>
+</div>
