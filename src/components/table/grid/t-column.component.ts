@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   template: '',
 })
 export class TColumnComponent<TData extends Record<string, unknown>> {
-  @Input({ required: true }) name: string = '';
-  @Input({ required: true }) property: keyof TData = '';
+  @Input({ required: true }) name!: string;
+  @Input({ required: true }) property!: keyof TData;
 }

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { Product, ProductsService } from '../../services/products.service';
 
-import { TGridComponent } from '../../components/table/grid/t-grid.component';
+import {
+  TGridComponent,
+  TGridPaginationChangeEvent,
+} from '../../components/table/grid/t-grid.component';
 import { TColumnComponent } from '../../components/table/grid/t-column.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
@@ -17,11 +20,18 @@ import { CommonModule } from '@angular/common';
 export class ProductsComponent implements OnInit {
   products: Product[] | null = null;
 
+  pageSize = 15;
+
   constructor(private productsService: ProductsService) {}
 
   ngOnInit() {
     this.productsService.getProducts().subscribe((data) => {
       this.products = data.products;
     });
+  }
+
+  performFetch(event: TGridPaginationChangeEvent) {
+    // React to pagination changes if needed
+    event;
   }
 }

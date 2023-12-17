@@ -2,10 +2,16 @@
   <h1>Angular Task</h1>
 
   <div *ngIf="!!products; else loading">
-    <t-grid [data]="products">
+    <t-grid
+      [data]="products"
+      [pageSize]="pageSize"
+      (paginationChange)="performFetch($event)"
+    >
       <t-column [name]="'ID'" [property]="'id'"></t-column>
       <t-column [name]="'Product'" [property]="'title'"></t-column>
       <t-column [name]="'Description'" [property]="'description'"></t-column>
+      <t-column [name]="'Category'" [property]="'category'"></t-column>
+      <t-column [name]="'Price'" [property]="'price'"></t-column>
     </t-grid>
   </div>
 

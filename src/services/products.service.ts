@@ -19,14 +19,8 @@ export type Product = {
 export class ProductsService {
   constructor(private http: HttpClient) {}
 
-  getProducts(limit?: number, skip?: number) {
-    const url = new URL('https://dummyjson.com/products');
-
-    if (typeof skip === 'number' && typeof limit === 'number') {
-      url.searchParams.append('limit', limit.toString());
-      url.searchParams.append('skip', skip.toString());
-    }
-
+  getProducts() {
+    const url = new URL('https://dummyjson.com/products?limit=0');
     return this.http.get<{ products: Product[] }>(url.href);
   }
 }
