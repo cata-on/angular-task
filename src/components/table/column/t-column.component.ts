@@ -9,4 +9,5 @@ import { TData } from '../types';
 export class TColumnComponent<T extends TData> {
   @Input({ required: true }) name!: string;
   @Input({ required: true }) property!: keyof T;
+  @Input() sortable: boolean = false;
 }

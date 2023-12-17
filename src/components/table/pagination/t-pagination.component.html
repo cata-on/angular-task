@@ -1,0 +1,31 @@
+<div class="pagination">
+  <button
+    class="pagination-button"
+    (click)="paginationFirstPage()"
+    [disabled]="currentPage === 0"
+  >
+    ↞
+  </button>
+  <button
+    class="pagination-button"
+    (click)="paginationPreviousPage()"
+    [disabled]="currentPage === 0"
+  >
+    ←
+  </button>
+  <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+  <button
+    class="pagination-button"
+    (click)="paginationNextPage()"
+    [disabled]="currentPage === this.totalPages - 1"
+  >
+    →
+  </button>
+  <button
+    class="pagination-button"
+    (click)="paginationLastPage()"
+    [disabled]="currentPage === this.totalPages - 1"
+  >
+    ↠
+  </button>
+</div>

@@ -1,0 +1,10 @@
+<button
+  class="table-header-cell"
+  (click)="sortChange.emit({ direction: otherDirection })"
+  [disabled]="disabled"
+>
+  <ng-content></ng-content>
+  <span *ngIf="sortDirection !== null">
+    {{ sortDirectionArrow }}
+  </span>
+</button>

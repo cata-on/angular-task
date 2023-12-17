@@ -5,6 +5,7 @@ import { Product, ProductsService } from '../../services/products.service';
 import {
   TGridComponent,
   TGridPaginationChangeEvent,
+  TGridSortChangeEvent,
 } from '../../components/table/grid/t-grid.component';
 import { TColumnComponent } from '../../components/table/column/t-column.component';
 
@@ -19,7 +20,7 @@ import { TColumnComponent } from '../../components/table/column/t-column.compone
 export class ProductsComponent implements OnInit {
   products: Product[] | null = null;
 
-  pageSize = 15;
+  pageSize = 5;
 
   constructor(private productsService: ProductsService) {}
 
@@ -31,6 +32,11 @@ export class ProductsComponent implements OnInit {
 
   performFetch(event: TGridPaginationChangeEvent) {
     // React to pagination changes if needed
+    event;
+  }
+
+  handleSortChange(event: TGridSortChangeEvent<Product>) {
+    // React to sort changes if needed
     event;
   }
 }

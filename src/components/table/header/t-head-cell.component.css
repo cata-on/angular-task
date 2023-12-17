@@ -1,0 +1,17 @@
+.table-header-cell {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  font-size: 1.5rem;
+  flex: 1;
+}
+
+.table-header-cell:not([disabled]) {
+  cursor: pointer;
+}
+.table-header-cell:not([disabled]):hover {
+  text-decoration: underline;
+}
+.table-header-cell[disabled] {
+  color: black;
+}

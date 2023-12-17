@@ -1,54 +1,28 @@
 <div class="table">
   <div class="table-header">
-    <div class="table-row">
-      <span class="table-cell" *ngFor="let column of columns"
-        >{{ column.name }}
-      </span>
-    </div>
+    <t-head-cell
+      *ngFor="let column of columns"
+      class="table-cell"
+      [sortDirection]="
+        _sortColumnName === column.property ? _sortDirection : null
+      "
+      (sortChange)="handleSortChange(column.property, $event.direction)"
+      [disabled]="!sortable || !column.sortable"
+    >
+      {{ column.name }}
+    </t-head-cell>
   </div>
 
-  <div
-    class="table-row"
-    *ngFor="
-      let product of pageSize
-        ? data.slice(_pageCursor * pageSize, _pageCursor * pageSize + pageSize)
-        : data
-    "
-  >
-    <span class="table-cell" *ngFor="let column of columns">
+  <div *ngFor="let product of dataInCursor" class="table-row">
+    <span *ngFor="let column of columns" class="table-cell">
       {{ product[column.property] }}
     </span>
   </div>
 
-  <div class="pagination" *ngIf="pageSize !== null">
-    <button
-      class="pagination-button"
-      (click)="paginationFirstPage()"
-      [disabled]="_pageCursor === 0"
-    >
-      ↞
-    </button>
-    <button
-      class="pagination-button"
-      (click)="paginationPreviousPage()"
-      [disabled]="_pageCursor === 0"
-    >
-      ←
-    </button>
-    <span>Page {{ _pageCursor + 1 }} of {{ totalPages }}</span>
-    <button
-      class="pagination-button"
-      (click)="paginationNextPage()"
-      [disabled]="_pageCursor === this.totalPages - 1"
-    >
-      →
-    </button>
-    <button
-      class="pagination-button"
-      (click)="paginationLastPage()"
-      [disabled]="_pageCursor === this.totalPages - 1"
-    >
-      ↠
-    </button>
-  </div>
+  <t-pagination
+    *ngIf="shouldShowPagination"
+    [currentPage]="_pageCursor"
+    [totalPages]="totalPages"
+    (paginationChange)="handlePageChange($event)"
+  ></t-pagination>
 </div>
