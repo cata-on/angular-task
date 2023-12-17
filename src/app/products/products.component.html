@@ -1,7 +1,7 @@
 <div class="wrapper">
   <h1>Angular Task</h1>
 
-  <div *ngIf="!!products; else loading">
+  <div *ngIf="products !== null; else loading">
     <t-grid
       [data]="products"
       [pageSize]="pageSize"

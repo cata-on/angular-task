@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,6 +13,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './t-pagination.component.html',
   styleUrl: './t-pagination.component.css',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TPaginationComponent {
   @Input({ required: true }) currentPage!: number;

@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Direction } from '../types';
@@ -9,6 +15,7 @@ import { Direction } from '../types';
   templateUrl: './t-head-cell.component.html',
   styleUrl: './t-head-cell.component.css',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class THeadCellComponent {
   @Input() sortDirection: Direction | null = null;

@@ -1,18 +1,25 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, SlicePipe } from '@angular/common';
+import { Observable, isObservable } from 'rxjs';
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   QueryList,
   numberAttribute,
 } from '@angular/core';
 
-import { TColumnComponent } from '../column/t-column.component';
 import { Direction, TData } from '../types';
+import { TColumnComponent } from '../column/t-column.component';
 import { THeadCellComponent } from '../header/t-head-cell.component';
 import { TPaginationComponent } from '../pagination/t-pagination.component';
+import { CursorPipe } from '../data-pipes/Cursor.pipe';
+import { PageCountPipe } from '../data-pipes/PageCount.pipe';
+import { OrderPipe } from '../data-pipes/Order.pipe';
 
 export type TGridPaginationChangeEvent = {
   currentPage: number;
@@ -29,11 +36,20 @@ export type TGridSortChangeEvent<T extends TData> = {
   standalone: true,
   templateUrl: './t-grid.component.html',
   styleUrls: ['./t-grid.component.css'],
-  imports: [CommonModule, THeadCellComponent, TPaginationComponent],
+  imports: [
+    CommonModule,
+    THeadCellComponent,
+    TPaginationComponent,
+    SlicePipe,
+    CursorPipe,
+    PageCountPipe,
+    OrderPipe,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TGridComponent<T extends TData> {
+export class TGridComponent<T extends TData> implements OnInit {
   // Inputs
-  @Input({ required: true }) data!: T[];
+  @Input({ required: true }) data!: T[] | Observable<T[]>;
   @Input() sortable: boolean = false;
   @Input({ transform: numberAttribute }) pageSize: number | null = null;
   @ContentChildren(TColumnComponent) columns!: QueryList<TColumnComponent<T>>;
@@ -43,46 +59,22 @@ export class TGridComponent<T extends TData> {
   @Output() sortChange = new EventEmitter<TGridSortChangeEvent<T>>();
 
   // Internal
+  _data: T[] = [];
   _pageCursor: number = 0;
   _sortColumnName: keyof T | null = null;
   _sortDirection: Direction | null = null;
 
-  private getSortedData() {
-    if (!this.sortable) return this.data;
-    if (!this._sortColumnName || !this._sortDirection) return this.data;
+  constructor(private ref: ChangeDetectorRef) {}
 
-    const columnName = this._sortColumnName;
-    const dataCopy = [...this.data];
-
-    dataCopy.sort((a, b) => {
-      const aValue = a[columnName];
-      const bValue = b[columnName];
-      if (aValue > bValue)
-        return this._sortDirection === Direction.ASC ? 1 : -1;
-      if (aValue < bValue)
-        return this._sortDirection === Direction.ASC ? -1 : 1;
-
-      return 0;
-    });
-
-    return dataCopy;
-  }
-
-  // Available to the template
-  get totalPages() {
-    if (this.pageSize === null) return 1;
-    return Math.ceil(this.data.length / this.pageSize);
-  }
-
-  get shouldShowPagination() {
-    return this.pageSize !== null && this.totalPages > 1;
-  }
-
-  get dataInCursor() {
-    if (this.pageSize === null) return this.data;
-    const start = this._pageCursor * this.pageSize;
-    const end = start + this.pageSize;
-    return this.getSortedData().slice(start, end);
+  ngOnInit(): void {
+    if (isObservable(this.data)) {
+      this.data.subscribe((data) => {
+        this._data = data;
+        this.ref.markForCheck();
+      });
+    } else {
+      this._data = this.data;
+    }
   }
 
   handleSortChange(columnName: keyof T, direction: Direction) {
@@ -97,8 +89,7 @@ export class TGridComponent<T extends TData> {
     });
   }
 
-  handlePageChange = (newPageRaw: number) => {
-    const targetPage = Math.min(Math.max(newPageRaw, 0), this.totalPages - 1);
+  handlePageChange = (targetPage: number) => {
     if (targetPage === this._pageCursor) return;
 
     this._pageCursor = targetPage;

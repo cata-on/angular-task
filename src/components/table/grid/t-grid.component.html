@@ -13,16 +13,24 @@
     </t-head-cell>
   </div>
 
-  <div *ngFor="let product of dataInCursor" class="table-row">
+  <div
+    *ngFor="
+      let product of _data
+        | order_by : _sortColumnName : _sortDirection
+        | cursor : _pageCursor : pageSize
+    "
+    class="table-row"
+  >
     <span *ngFor="let column of columns" class="table-cell">
       {{ product[column.property] }}
     </span>
   </div>
 
   <t-pagination
-    *ngIf="shouldShowPagination"
+    class="pagination"
+    *ngIf="(_data | page_count : pageSize) > 1"
     [currentPage]="_pageCursor"
-    [totalPages]="totalPages"
+    [totalPages]="_data | page_count : pageSize"
     (paginationChange)="handlePageChange($event)"
   ></t-pagination>
 </div>
