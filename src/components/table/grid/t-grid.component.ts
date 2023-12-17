@@ -8,7 +8,8 @@ import {
   QueryList,
   numberAttribute,
 } from '@angular/core';
-import { TColumnComponent } from './t-column.component';
+import { TColumnComponent } from '../column/t-column.component';
+import { TData } from '../types';
 
 export type TGridPaginationChangeEvent = {
   currentPage: number;
@@ -22,14 +23,12 @@ export type TGridPaginationChangeEvent = {
   styleUrls: ['./t-grid.component.css'],
   imports: [CommonModule],
 })
-export class TGridComponent<TData extends Record<string, unknown>> {
+export class TGridComponent<T extends TData> {
   // Inputs
-  @Input({ required: true }) data!: TData[];
+  @Input({ required: true }) data!: T[];
   @Input() sortable: boolean = false;
   @Input({ transform: numberAttribute }) pageSize: number | null = null;
-  @ContentChildren(TColumnComponent) columns!: QueryList<
-    TColumnComponent<TData>
-  >;
+  @ContentChildren(TColumnComponent) columns!: QueryList<TColumnComponent<T>>;
 
   // Outputs
   @Output() paginationChange = new EventEmitter<TGridPaginationChangeEvent>();

@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Product, ProductsService } from '../../services/products.service';
-
 import {
   TGridComponent,
   TGridPaginationChangeEvent,
 } from '../../components/table/grid/t-grid.component';
-import { TColumnComponent } from '../../components/table/grid/t-column.component';
+import { TColumnComponent } from '../../components/table/column/t-column.component';
 
 @Component({
   standalone: true,
