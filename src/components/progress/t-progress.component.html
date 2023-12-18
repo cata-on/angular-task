@@ -1,0 +1,14 @@
+<svg [attr.height]="2 * sanitizedRadius" [attr.width]="2 * sanitizedRadius">
+  <circle
+    *ngIf="sanitizedProgress === 100"
+    [attr.cx]="sanitizedRadius"
+    [attr.cy]="sanitizedRadius"
+    [attr.r]="sanitizedRadius"
+    [attr.fill]="color"
+  />
+  <path
+    *ngIf="sanitizedProgress < 100"
+    [attr.d]="path"
+    [attr.fill]="color"
+  ></path>
+</svg>

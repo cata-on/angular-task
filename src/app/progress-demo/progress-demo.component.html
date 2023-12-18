@@ -1,0 +1,50 @@
+<h2>Progress Indicator</h2>
+<div class="examples-wrapper">
+  <t-progress [radius]="5" [progress]="20" color="#0F0F0F"></t-progress>
+  <t-progress [radius]="50" [progress]="40" color="#232D3F"></t-progress>
+  <t-progress [radius]="60" [progress]="60" color="#005B41"></t-progress>
+  <t-progress [radius]="70" [progress]="80" color="#008170"></t-progress>
+  <t-progress [radius]="80" [progress]="100" color="#008170"></t-progress>
+  <t-progress
+    [radius]="80"
+    [progress]="incrementedPercentage"
+    color="#008170"
+  ></t-progress>
+</div>
+
+<div class="controllable-progress-wrapper">
+  <div class="controls">
+    <label>
+      Progress:
+      <input
+        type="range"
+        min="0"
+        max="100"
+        [value]="sliderProgress"
+        (input)="changeProgress($event)"
+      />
+    </label>
+    <label>
+      Radius:
+      <input
+        type="range"
+        min="50"
+        max="200"
+        [value]="sliderRadius"
+        (input)="changeRadius($event)"
+      />
+    </label>
+    <label>
+      Color:
+      <input type="color" [value]="sliderColor" (input)="changeColor($event)" />
+    </label>
+  </div>
+
+  <div class="controllable-progress">
+    <t-progress
+      [radius]="sliderRadius"
+      [progress]="sliderProgress"
+      [color]="sliderColor"
+    ></t-progress>
+  </div>
+</div>
