@@ -20,8 +20,9 @@
         | cursor : _pageCursor : pageSize
     "
     class="table-row"
+    data-test-id="row"
   >
-    <span *ngFor="let column of columns" class="table-cell">
+    <span *ngFor="let column of columns" class="table-cell" data-test-id="cell">
       {{ product[column.property] }}
     </span>
   </div>
