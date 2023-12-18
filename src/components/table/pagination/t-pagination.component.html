@@ -1,6 +1,7 @@
 <div class="pagination">
   <button
     class="pagination-button"
+    data-test-id="pagination-first-page"
     (click)="paginationFirstPage()"
     [disabled]="currentPage === 0"
   >
@@ -8,14 +9,18 @@
   </button>
   <button
     class="pagination-button"
+    data-test-id="pagination-previous-page"
     (click)="paginationPreviousPage()"
     [disabled]="currentPage === 0"
   >
     ←
   </button>
-  <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+  <span data-test-id="current-page"
+    >Page {{ currentPage + 1 }} of {{ totalPages }}</span
+  >
   <button
     class="pagination-button"
+    data-test-id="pagination-next-page"
     (click)="paginationNextPage()"
     [disabled]="currentPage === this.totalPages - 1"
   >
@@ -23,6 +28,7 @@
   </button>
   <button
     class="pagination-button"
+    data-test-id="pagination-last-page"
     (click)="paginationLastPage()"
     [disabled]="currentPage === this.totalPages - 1"
   >
