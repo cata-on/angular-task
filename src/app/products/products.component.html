@@ -1,5 +1,21 @@
 <div>
   <h2>DataGrid</h2>
+
+  <div class="page-size-selector">
+    <label>
+      Products per page:
+      <select name="page-size" (change)="handlePageSizeChange($event)">
+        <option
+          *ngFor="let value of [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]"
+          [value]="value"
+          [selected]="value === pageSize"
+        >
+          {{ value }}
+        </option>
+      </select>
+    </label>
+  </div>
+
   <div *ngIf="products !== null; else loading">
     <t-grid
       [data]="products"

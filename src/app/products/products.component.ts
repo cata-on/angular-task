@@ -26,7 +26,6 @@ import { TColumnComponent } from '../../components/table/column/t-column.compone
 })
 export class ProductsComponent implements OnInit {
   products: Product[] | Observable<Product[]> | null = null;
-
   pageSize = 5;
 
   constructor(
@@ -44,6 +43,11 @@ export class ProductsComponent implements OnInit {
     // Mode 2: Observable
     this.products = this.productsService.getProducts();
   }
+
+  handlePageSizeChange = (event: Event) => {
+    if (!(event.target instanceof HTMLSelectElement)) return;
+    this.pageSize = Number(event.target.value);
+  };
 
   performFetch(event: TGridPaginationChangeEvent) {
     // React to pagination changes if needed
