@@ -7,9 +7,9 @@
   <span class="table-header-cell-content">
     <ng-content></ng-content>
   </span>
-  <span
-    class="table-header-cell-arrow"
+
+  <sort-icon
     data-test-id="header-cell-sort-direction"
-    >{{ sortDirectionArrow }}
-  </span>
+    [direction]="sortDirection"
+  />
 </button>

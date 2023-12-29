@@ -2,6 +2,7 @@
   padding: 0;
 
   font-size: 1.25rem;
+  line-height: 1em;
   font-weight: bold;
 
   text-wrap: nowrap;
@@ -17,10 +18,7 @@
   transition-property: background-color, color;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-function);
-}
-
-.table-header-cell-arrow {
-  min-width: 1ch;
+  --cell-hover-icon-color: transparent;
 }
 
 .table-header-cell-button:not([disabled]) {
@@ -30,4 +28,5 @@
 
 .table-header-cell-button:not([disabled]):hover {
   background-color: var(--background-alternative-color);
+  --cell-hover-icon-color: currentColor;
 }

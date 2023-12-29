@@ -1,0 +1,25 @@
+<svg class="icon" viewBox="0 0 24 24" fill="none">
+  <path
+    *ngIf="direction !== null"
+    class="icon-path"
+    [attr.d]="
+      direction === Direction.ASC
+        ? 'M7 3V21M7 3L11 7M7 3L3 7M14 3H15M14 9H17M14 15H19M14 21H21'
+        : 'M7 3V21M7 21L3 17M7 21L11 17M14 3H21M14 9H19M14 15H17M14 21H15'
+    "
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <path
+    *ngIf="direction === null"
+    class="icon-path-hover"
+    d="M7 3V21M7 3L11 7M7 3L3 7M14 3H15M14 9H17M14 15H19M14 21H21"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
