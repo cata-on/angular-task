@@ -5,7 +5,15 @@
     (click)="paginationFirstPage()"
     [disabled]="currentPage === 0"
   >
-    ↞
+    <svg viewBox="0 0 24 24" fill="none">
+      <path
+        d="M4 12L10 6M4 12L10 18M4 12H14.5M20 12H17.5"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
   </button>
   <button
     class="pagination-button"
@@ -13,7 +21,15 @@
     (click)="paginationPreviousPage()"
     [disabled]="currentPage === 0"
   >
-    ←
+    <svg viewBox="0 0 24 24" fill="none">
+      <path
+        d="M5 12H19M5 12L11 6M5 12L11 18"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
   </button>
   <span data-test-id="current-page"
     >Page {{ currentPage + 1 }} of {{ totalPages }}</span
@@ -24,7 +40,15 @@
     (click)="paginationNextPage()"
     [disabled]="currentPage === this.totalPages - 1"
   >
-    →
+    <svg viewBox="0 0 24 24" fill="none">
+      <path
+        d="M5 12H19M19 12L13 6M19 12L13 18"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
   </button>
   <button
     class="pagination-button"
@@ -32,6 +56,14 @@
     (click)="paginationLastPage()"
     [disabled]="currentPage === this.totalPages - 1"
   >
-    ↠
+    <svg viewBox="0 0 24 24" fill="none">
+      <path
+        d="M4 12H6.5M20 12L14 6M20 12L14 18M20 12H9.5"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
   </button>
 </div>
