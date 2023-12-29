@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { TProgressComponent } from '../../components/progress/t-progress.component';
 
@@ -9,12 +9,10 @@ import { TProgressComponent } from '../../components/progress/t-progress.compone
   styleUrl: './progress-demo.component.css',
   imports: [TProgressComponent],
 })
-export class ProgressDemoComponent implements OnInit {
-  incrementedPercentage: number = 0;
-
+export class ProgressDemoComponent {
   sliderProgress: number = 75;
   sliderRadius: number = 75;
-  sliderColor: string = '#008170';
+  sliderColor: string = '#2bbdee';
 
   changeProgress(event: Event) {
     if (!(event.target instanceof HTMLInputElement)) return;
@@ -27,12 +25,5 @@ export class ProgressDemoComponent implements OnInit {
   changeColor(event: Event) {
     if (!(event.target instanceof HTMLInputElement)) return;
     this.sliderColor = event.target.value;
-  }
-
-  ngOnInit(): void {
-    setInterval(() => {
-      this.incrementedPercentage += 5;
-      if (this.incrementedPercentage > 100) this.incrementedPercentage = 0;
-    }, 100);
   }
 }

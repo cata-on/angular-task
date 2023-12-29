@@ -7,9 +7,11 @@ import {
   ContentChildren,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
   QueryList,
+  SimpleChanges,
   numberAttribute,
 } from '@angular/core';
 
@@ -20,6 +22,7 @@ import { TPaginationComponent } from '../pagination/t-pagination.component';
 import { CursorPipe } from '../data-pipes/Cursor.pipe';
 import { PageCountPipe } from '../data-pipes/PageCount.pipe';
 import { OrderPipe } from '../data-pipes/Order.pipe';
+import { IndefiniteLoaderComponent } from '../../indefinite-loader/indefinite-loader.component';
 
 export type TGridPaginationChangeEvent = {
   currentPage: number;
@@ -40,6 +43,7 @@ export type TGridSortChangeEvent<T extends TData> = {
     CommonModule,
     THeadCellComponent,
     TPaginationComponent,
+    IndefiniteLoaderComponent,
     SlicePipe,
     CursorPipe,
     PageCountPipe,
@@ -47,7 +51,7 @@ export type TGridSortChangeEvent<T extends TData> = {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TGridComponent<T extends TData> implements OnInit {
+export class TGridComponent<T extends TData> implements OnInit, OnChanges {
   // Inputs
   @Input({ required: true }) data!: T[] | Observable<T[]>;
   @Input() sortable: boolean = false;
@@ -63,17 +67,33 @@ export class TGridComponent<T extends TData> implements OnInit {
   _pageCursor: number = 0;
   _sortColumnName: keyof T | null = null;
   _sortDirection: Direction | null = null;
+  isLoading: boolean = false;
 
   constructor(private ref: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     if (isObservable(this.data)) {
+      this.isLoading = true;
       this.data.subscribe((data) => {
         this._data = data;
+        this.isLoading = false;
         this.ref.markForCheck();
       });
     } else {
       this._data = this.data;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const change = changes['pageSize'];
+    if (!change.firstChange && change.currentValue !== change.previousValue) {
+      const totalPages = change.currentValue
+        ? Math.ceil(this._data.length / change.currentValue)
+        : 1;
+
+      if (this._pageCursor >= totalPages) {
+        this._pageCursor = totalPages - 1;
+      }
     }
   }
 

@@ -7,6 +7,15 @@ const degToRad = (deg: number) => deg * (Math.PI / 180);
   selector: 't-progress',
   standalone: true,
   templateUrl: './t-progress.component.html',
+  styles: [
+    `
+      .progress-svg {
+        transition-property: color;
+        transition-duration: var(--transition-duration);
+        transition-timing-function: var(--transition-function);
+      }
+    `,
+  ],
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

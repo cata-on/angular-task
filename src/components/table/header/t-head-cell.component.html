@@ -1,14 +1,15 @@
 <button
-  class="table-header-cell"
+  class="table-header-cell-button"
   data-test-id="header-cell-button"
   (click)="sortChange.emit({ direction: otherDirection })"
   [disabled]="disabled"
 >
-  <ng-content></ng-content>
+  <span class="table-header-cell-content">
+    <ng-content></ng-content>
+  </span>
   <span
-    *ngIf="sortDirection !== null"
+    class="table-header-cell-arrow"
     data-test-id="header-cell-sort-direction"
-  >
-    {{ sortDirectionArrow }}
+    >{{ sortDirectionArrow }}
   </span>
 </button>

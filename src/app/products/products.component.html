@@ -1,56 +1,57 @@
-<div>
-  <h2>DataGrid</h2>
-
-  <div class="page-size-selector">
-    <label>
-      Products per page:
-      <select name="page-size" (change)="handlePageSizeChange($event)">
-        <option
-          *ngFor="let value of [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]"
-          [value]="value"
-          [selected]="value === pageSize"
-        >
-          {{ value }}
-        </option>
-      </select>
-    </label>
-  </div>
-
-  <div *ngIf="products !== null; else loading">
-    <t-grid
-      [data]="products"
-      [pageSize]="pageSize"
-      [sortable]="true"
-      (paginationChange)="performFetch($event)"
-      (sortChange)="handleSortChange($event)"
+<div class="page-size-selector">
+  <label>
+    <span>Products per page:&nbsp;</span>
+    <select
+      class="select"
+      name="page-size"
+      (change)="handlePageSizeChange($event)"
     >
-      <t-column [name]="'ID'" [property]="'id'" [sortable]="true"></t-column>
-      <t-column
-        [name]="'Product'"
-        [property]="'title'"
-        [sortable]="true"
-      ></t-column>
-      <t-column [name]="'Description'" [property]="'description'"></t-column>
-      <t-column
-        [name]="'Category'"
-        [property]="'category'"
-        [sortable]="true"
-      ></t-column>
-      <t-column
-        [name]="'Price'"
-        [property]="'price'"
-        [sortable]="true"
-      ></t-column>
-
-      <t-column
-        [name]="'Rating'"
-        [property]="'rating'"
-        [sortable]="true"
-      ></t-column>
-    </t-grid>
-  </div>
-
-  <ng-template #loading>
-    <div class="loading">Loading data...</div>
-  </ng-template>
+      <option
+        *ngFor="let value of [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]"
+        [value]="value"
+        [selected]="value === pageSize"
+      >
+        {{ value }}
+      </option>
+    </select>
+  </label>
 </div>
+
+<div *ngIf="products !== null; else loading">
+  <t-grid
+    class="products-grid"
+    [data]="products"
+    [pageSize]="pageSize"
+    [sortable]="true"
+    (paginationChange)="performFetch($event)"
+    (sortChange)="handleSortChange($event)"
+  >
+    <t-column [name]="'ID'" [property]="'id'" [sortable]="true"></t-column>
+    <t-column
+      [name]="'Product'"
+      [property]="'title'"
+      [sortable]="true"
+    ></t-column>
+    <t-column [name]="'Description'" [property]="'description'"></t-column>
+    <t-column
+      [name]="'Category'"
+      [property]="'category'"
+      [sortable]="true"
+    ></t-column>
+    <t-column
+      [name]="'Price'"
+      [property]="'price'"
+      [sortable]="true"
+    ></t-column>
+
+    <t-column
+      [name]="'Rating'"
+      [property]="'rating'"
+      [sortable]="true"
+    ></t-column>
+  </t-grid>
+</div>
+
+<ng-template #loading>
+  <div class="loading">Loading data...</div>
+</ng-template>

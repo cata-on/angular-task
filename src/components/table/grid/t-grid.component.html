@@ -1,34 +1,47 @@
-<div class="table">
+<div class="table-placeholder" *ngIf="isLoading">
+  <indefinite-loader> </indefinite-loader>
+</div>
+
+<div
+  *ngIf="!isLoading"
+  class="table"
+  [ngStyle]="{
+  '--number-of-columns': columns.length,
+}"
+>
   <div class="table-header">
     <t-head-cell
       *ngFor="let column of columns"
-      class="table-cell"
       [sortDirection]="
         _sortColumnName === column.property ? _sortDirection : null
       "
       (sortChange)="handleSortChange(column.property, $event.direction)"
       [disabled]="!sortable || !column.sortable"
+      >{{ column.name }}</t-head-cell
     >
-      {{ column.name }}
-    </t-head-cell>
   </div>
-
-  <div
-    *ngFor="
-      let product of _data
-        | order_by : _sortColumnName : _sortDirection
-        | cursor : _pageCursor : pageSize
-    "
-    class="table-row"
-    data-test-id="row"
-  >
-    <span *ngFor="let column of columns" class="table-cell" data-test-id="cell">
-      {{ product[column.property] }}
-    </span>
+  <div class="table-body">
+    <div
+      *ngFor="
+        let product of _data
+          | order_by : _sortColumnName : _sortDirection
+          | cursor : _pageCursor : pageSize
+      "
+      class="table-row"
+      data-test-id="row"
+    >
+      <span
+        *ngFor="let column of columns"
+        class="table-cell"
+        data-test-id="cell"
+      >
+        {{ product[column.property] }}
+      </span>
+    </div>
   </div>
 
   <t-pagination
-    class="pagination"
+    class="table-footer"
     *ngIf="(_data | page_count : pageSize) > 1"
     [currentPage]="_pageCursor"
     [totalPages]="_data | page_count : pageSize"

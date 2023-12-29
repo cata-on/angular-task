@@ -26,7 +26,7 @@ import { TColumnComponent } from '../../components/table/column/t-column.compone
 })
 export class ProductsComponent implements OnInit {
   products: Product[] | Observable<Product[]> | null = null;
-  pageSize = 5;
+  pageSize = 30;
 
   constructor(
     private productsService: ProductsService,
