@@ -1,4 +1,10 @@
-<svg class="icon" viewBox="0 0 24 24" fill="none">
+<svg
+  data-test-id="header-cell-sort-direction"
+  [attr.data-direction]="direction"
+  class="icon"
+  viewBox="0 0 24 24"
+  fill="none"
+>
   <path
     *ngIf="direction !== null"
     class="icon-path"

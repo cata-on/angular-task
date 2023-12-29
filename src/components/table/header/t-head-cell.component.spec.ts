@@ -38,19 +38,24 @@ describe('THeadCellComponent', () => {
   it('should not display the sort element when no sorting active', () => {
     component.sortDirection = null;
     fixture.detectChanges();
-    expect(getSortDirectionElement()).toBeNull();
+    expect(getSortDirectionElement().getAttribute('data-direction')).toBeNull();
   });
 
-  it('should not display the correct sorting when ASC', () => {
+  it('should display the correct sorting when ASC', () => {
     component.sortDirection = Direction.ASC;
     fixture.detectChanges();
-    expect(getSortDirectionElement().innerText).toBe('↑');
+
+    expect(getSortDirectionElement().getAttribute('data-direction')).toBe(
+      Direction.ASC
+    );
   });
 
-  it('should not display the correct sorting when DESC', () => {
+  it('should display the correct sorting when DESC', () => {
     component.sortDirection = Direction.DESC;
     fixture.detectChanges();
-    expect(getSortDirectionElement().innerText).toBe('↓');
+    expect(getSortDirectionElement().getAttribute('data-direction')).toBe(
+      Direction.DESC
+    );
   });
 
   it('should emit the correct sort event when clicked & no sorting active', () => {

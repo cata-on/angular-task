@@ -11,7 +11,7 @@ import { TProgressComponent } from '../../components/progress/t-progress.compone
 })
 export class ProgressDemoComponent {
   sliderProgress: number = 75;
-  sliderRadius: number = 75;
+  sliderRadius: number = 200;
   sliderColor: string = '#2bbdee';
 
   changeProgress(event: Event) {
